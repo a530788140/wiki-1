@@ -33,7 +33,7 @@ Uint storedData声明了一个uint类型（256位无符号整数）的名为stor
 
 
 子货币例子
-<blockquote>
+<code>
 contract Coin {
     address minter;
     mapping (address => uint) balances;
@@ -53,7 +53,7 @@ contract Coin {
         return balances[addr];
     }
 }
-</blockquote>
+</code>
 
 这个合约引入了一些新的概念。其中之一是address类型，这是一个不允许有任何算术运算的160位的值。此外，状态变量balance是一个复杂的数据类型，它映射address到无符号整数。映射可以被看作是哈希表，在实际初始化后，每一个可能存在的键都被映射到一个字节表示是全零的值。Coin这个特别的函数是构造函数，在合约被创建时运行，并且以后不能被调用。它永久存储这个合约创建人的地址。同tx和block一起，msg是一个神奇的全局变量，包含了一些属性，允许合约访问外部世界。函数queryBalance被声明为constant（常量类型），并且因此不允许修改合约的状态（注意，虽然尚未强制执行）。在Solidity中，返回“参数”被是命名的，本质上即建立了一个局部变量。所以返回balance时，我们只需使用bal = balance[addr]; 没有任何return语句。
 
